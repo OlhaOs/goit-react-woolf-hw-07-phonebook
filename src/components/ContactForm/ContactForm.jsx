@@ -1,8 +1,8 @@
+import { addContact } from 'api/operation';
 import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContactAction } from 'store/contacts/slice';
 
 const defaultState = {
   name: '',
@@ -21,7 +21,7 @@ export const ContactForm = () => {
 
   const handleAddContactBtn = newContact => {
     const id = nanoid();
-    dispatch(addContactAction({ ...newContact, id }));
+    dispatch(addContact({ ...newContact, id }));
   };
 
   const handleSubmit = e => {
