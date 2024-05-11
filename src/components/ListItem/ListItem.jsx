@@ -1,13 +1,11 @@
 import { useDispatch } from 'react-redux';
 import css from './ListItem.module.css';
-
 import { deleteContact } from 'api/operation';
 
 export const ListItem = ({ contact }) => {
   const dispatch = useDispatch();
 
   const handleDeleteContactBtn = id => {
-    console.log('id', id);
     dispatch(deleteContact(id));
   };
 

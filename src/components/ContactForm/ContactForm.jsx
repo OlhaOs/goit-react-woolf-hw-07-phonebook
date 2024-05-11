@@ -1,17 +1,16 @@
 import { addContact } from 'api/operation';
 import css from './ContactForm.module.css';
-import { nanoid } from 'nanoid';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getContacts } from 'store/contacts/selectors';
 
 const defaultState = {
   name: '',
   number: '',
 };
-const contactSelector = state => state.contacts.contacts;
 
 export const ContactForm = () => {
-  const contacts = useSelector(contactSelector);
+  const { contacts } = useSelector(getContacts);
   const dispatch = useDispatch();
   const [state, setState] = useState(defaultState);
 
@@ -20,8 +19,7 @@ export const ContactForm = () => {
   };
 
   const handleAddContactBtn = newContact => {
-    const id = nanoid();
-    dispatch(addContact({ ...newContact, id }));
+    dispatch(addContact(newContact));
   };
 
   const handleSubmit = e => {

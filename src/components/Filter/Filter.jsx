@@ -1,14 +1,11 @@
 import css from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
+import { getSeacrhQuery } from 'store/filter/selectors';
 import { findContact } from 'store/filter/slice';
-
-const filterSelector = state => state.filter.searchQuery;
-
 
 export const Filter = () => {
   const dispatch = useDispatch();
-
-  const filter = useSelector(filterSelector);
+  const { searchQuery } = useSelector(getSeacrhQuery);
 
   const handleFilterChange = e => {
     dispatch(findContact(e.target.value));
@@ -19,7 +16,7 @@ export const Filter = () => {
         <label htmlFor="filter">Find contacts by name</label>
         <input
           name="filter"
-          value={filter}
+          value={searchQuery}
           onChange={handleFilterChange}
           className={css.filterInput}
         />

@@ -4,6 +4,7 @@ import { ListItem } from 'components/ListItem/ListItem';
 import { useEffect } from 'react';
 import { getContacts } from 'store/contacts/selectors';
 import { getContactsList } from 'api/operation';
+import { Loader } from 'components/Loader/Loader';
 
 export const ContactList = () => {
   const { contacts, isLoading, error } = useSelector(getContacts);
@@ -22,13 +23,20 @@ export const ContactList = () => {
 
   return (
     <>
-      {isLoading && <h1>Loading...</h1>}
-      {error && <h1>{error}</h1>}
-      <ul className={css.contactList}>
-        {filteredData.map(contact => (
-          <ListItem key={contact.id} contact={contact} />
-        ))}
-      </ul>
+      {isLoading ? (
+        <Loader />
+      ) : (
+        <>
+          {error && <h1>{error}</h1>}
+          {filteredData.length > 0 && (
+            <ul className={css.contactList}>
+              {filteredData.map(contact => (
+                <ListItem key={contact.id} contact={contact} />
+              ))}
+            </ul>
+          )}
+        </>
+      )}
     </>
   );
 };
